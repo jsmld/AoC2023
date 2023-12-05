@@ -17,25 +17,15 @@ function firstAndLastNumbers (input) {
     regex.lastIndex = found.index + 1 
   }
 
-  console.log(matches, found)
-
-  // const numberWords = ["zero","one","two","three","four", "five","six","seven","eight","nine"]
-
-  // const m = matches.map(str => Number(str) ? str : numberWords.indexOf(str).toString())
-
-  // const firstLast = m[0] + m[m.length - 1]
-  // return Number(firstLast)
 }
 
-firstAndLastNumbers(['zerone', 'threeight', 'sevenine'])
+function calibrationSumPartOne (inputArr) {
+  return inputArr.map(firstAndLastDigits).reduce((a,c) => a + c)
+}
 
-// function calibrationSumPartOne (inputArr) {
-//   return inputArr.map(firstAndLastDigits).reduce((a,c) => a + c)
-// }
+function calibrationSumPartTwo (inputArr) {
+  return inputArr.map(firstAndLastNumbers).reduce((a,c) => a + c)
+}
 
-// function calibrationSumPartTwo (inputArr) {
-//   return inputArr.map(firstAndLastNumbers).reduce((a,c) => a + c)
-// }
-
-// console.log({'Should be the answer for part one: ': calibrationSumPartOne(calibrationValues)})
-// console.log({'Should be the answer for part two: ': calibrationSumPartTwo(calibrationValues)})
+console.log({'Should be the answer for part one: ': calibrationSumPartOne(calibrationValues)})
+console.log({'Should be the answer for part two: ': calibrationSumPartTwo(calibrationValues)})
