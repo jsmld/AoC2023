@@ -2,20 +2,40 @@ import { readFileSync } from 'fs'
 
 const calibrationValues = readFileSync('./calibration.txt', 'utf-8').split('\n')
 
-function numbersOnly (str) {
-  return str.split('').filter(c => !isNaN(c)).join('')
+function firstAndLastDigits (input) {
+  let matches = input.match(/\d/g)
+  const firstLast = matches[0] + matches[matches.length - 1]
+  return Number(firstLast)
 }
 
-function firstAndLast (str) {
-  return str[0] + str[str.length - 1]
+function firstAndLastNumbers (input) {
+  const regex = /(one|two|three|four|five|six|seven|eight|nine|\d)/g
+  let matches = []
+  let found
+  while (found = regex.exec(input)) {
+    matches.push(found[0])
+    regex.lastIndex = found.index + 1 
+  }
+
+  console.log(matches, found)
+
+  // const numberWords = ["zero","one","two","three","four", "five","six","seven","eight","nine"]
+
+  // const m = matches.map(str => Number(str) ? str : numberWords.indexOf(str).toString())
+
+  // const firstLast = m[0] + m[m.length - 1]
+  // return Number(firstLast)
 }
 
-function sum (acc, cur) {
-  return parseInt(acc) + Number(cur)
-}
+firstAndLastNumbers(['zerone', 'threeight', 'sevenine'])
 
-function calibrationSum (inputArr) {
-  return inputArr.map(numbersOnly).map(firstAndLast).reduce(sum)
-}
+// function calibrationSumPartOne (inputArr) {
+//   return inputArr.map(firstAndLastDigits).reduce((a,c) => a + c)
+// }
 
-console.log({'Should be the answer: ': calibrationSum(calibrationValues)})
+// function calibrationSumPartTwo (inputArr) {
+//   return inputArr.map(firstAndLastNumbers).reduce((a,c) => a + c)
+// }
+
+// console.log({'Should be the answer for part one: ': calibrationSumPartOne(calibrationValues)})
+// console.log({'Should be the answer for part two: ': calibrationSumPartTwo(calibrationValues)})
