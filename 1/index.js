@@ -16,7 +16,10 @@ function firstAndLastNumbers (input) {
     matches.push(found[0])
     regex.lastIndex = found.index + 1 
   }
-
+  const numberWords = ["zero","one","two","three","four", "five","six","seven","eight","nine"]
+  const m = matches.map(str => Number(str) ? str : numberWords.indexOf(str).toString())
+  const firstLast = m[0] + m[m.length - 1]
+  return Number(firstLast)
 }
 
 function calibrationSumPartOne (inputArr) {
