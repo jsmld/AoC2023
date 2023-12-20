@@ -28,14 +28,14 @@ const gamePossibleV2 = gamesArr.map(game => {
     'g': 0,
     'b': 0
   }
-  game.map(val => {
+  game.forEach(val => {
     let [num, color] = val.split(' ')
     if (Number(num) > highestVals[color]) {
       highestVals[color] = Number(num)
     }
   })
 
-  return Object.values(highestVals).reduce((a, b) => a * b)
+  return highestVals['r'] * highestVals['g'] * highestVals['b']
 }).reduce((a, b) => a + b)
 
 console.log(gamePossibleV2)
