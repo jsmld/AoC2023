@@ -1,32 +1,42 @@
 import { readFileSync } from 'fs'
 
 const gameValues = readFileSync('./game.txt', 'utf-8').split('\n')
-let solution = 0
+
 const maxVals = {
   'r': 12,
   'g': 13,
-  'b': 14 
+  'b': 14
 }
 const regex = /\d+\s*([rgb])/g;
 const gamesArr = gameValues.map((val) => (
   val.match(regex)
 ))
 
-const thing = gamesArr.map(arr => (
-  arr.map(el => {
-    let [num, color] = el.split(' ')
+const gamePossible = gamesArr.map(game => (
+  game.map(val => {
+    let [num, color] = val.split(' ')
     return Number(num) <= maxVals[color]
+  })))
+  .map(game => game.every(val => val === true))
+  .reduce((acc, curr, i) => (curr ? acc + i + 1 : acc))
+
+console.log(gamePossible)
+
+const gamePossibleV2 = gamesArr.map(game => {
+  let highestVals = {
+    'r': 0,
+    'g': 0,
+    'b': 0
+  }
+  game.map(val => {
+    let [num, color] = val.split(' ')
+    if (Number(num) > highestVals[color]) {
+      highestVals[color] = Number(num)
+    }
   })
-))
 
-const wat = []
+  return Object.values(highestVals).reduce((a, b) => a * b)
+}).reduce((a, b) => a + b)
 
-thing.map(arr => (
-  wat.push(arr.every(el => el === true))
-))
-
-wat.forEach((el, i) => el ? solution += i+1 : solution+= 0)
-
-console.log(solution)
-
+console.log(gamePossibleV2)
 
